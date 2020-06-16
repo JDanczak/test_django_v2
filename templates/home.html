@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Hello {{name}}!</h1>
+
+<!--
+<form action="add" method="post">
+
+{% csrf_token %}
+    Enter first number: <input type="number" name="num1"><br>
+    Enter second number: <input type="number" name="num2"><br>
+    <input type="submit">
+</form>
+//-->
+
+<!--
+<form action="/external/" method="post">
+    {% csrf_token %}
+    <br><br>
+    Input text:
+    <input type="text" name="param" required>
+    {{ data_external }}<br><br>
+    <input type="submit" value="Execute script">
+</form>
+//-->
+<h1>Pomiar czasu pogłosu</h1>
+    <h2>Instrukcja obsługi:</h2>
+    <ol>
+    <li>Odtwórz wybrany sygnał z generatora;</li>
+    <li>Rozpocznij pomiar przyciskiem "START";</li>
+    <li>Gdy sygnał testowy się zakończy, odczekaj chwilę (aż dźwięk w pomieszczeniu zaniknie);</li>
+    <li>Zakończ pomiar przyciskiem "STOP";</li>
+    <li>Po chwili na ekranie pojawi się krzywa zaniku energii akustycznej w pomieszczeniu.</li>
+    </ol>
+
+<div id="controls">
+    <button id="startButton">START</button>
+        {% csrf_token %}
+    <button id="stopButton" disabled>STOP</button>
+</div>
+    <!-- -->
+<!--<div id="formats">Szybkość próbkowania: parametry rejestracji sygnału zostaną pobrane po rozpoczęciu pomiaru.</div>
+<p><strong>Recordings:</strong></p>
+  	 <ol id="recordingsList"></ol> -->
+
+
+	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="{% static 'app.js' %}"></script>
+    <script src="{% static 'recorder.js' %}"></script>
+    <script src="{% static 'jQuery.js' %}"></script>
+    <script src="{% static 'cookie.js' %}"></script>
+
+<div style="width=1000;height:100">
+{{ graph|safe }}
+</div>
+
+{% endblock %}

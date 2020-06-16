@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Program do pomiaru i obliczania czasu pogłosu w pomieszczeniu.">
+    <meta name="keywords" content="czas pogłosu, pogłos, pomiar czasu pogłosu">
+    <meta name="author" content="Jan Dańczak" , "Estera Ates" , Weronika Luteńko>
+    <title>Czas pogłosu - obliczanie i pomiar</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+
+        body {
+            background-color: #1f1b2a;
+            /*margin: 5vh 5vw;*/
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1 {
+            color: #e7356a;
+            font-size: 2.3rem;
+        }
+
+        h2 {
+            color: #f9741b;
+            font-size: 1.8rem;
+        }
+
+        input[type=submit],
+        button {
+            width: 8vw;
+            height: 5vh;
+            padding: 1.5vh;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            color: #2f2f2f;
+            background-color: coral;
+            letter-spacing: 1px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 1.5s;
+            margin: 3vh 2vw 0 0;
+        }
+
+
+        input[type=submit]:hover,
+        button:hover {
+            transform: scale(1.05);
+            background-color: #e7356a;
+
+        }
+
+        button {
+            width: 8vw;
+            height: 8vh;
+            padding: 2vh;
+        }
+        
+        .navbar-brand.navbar-center {
+			position: relative;
+			left: 50%;
+			transform: translatex(-50%);
+		}
+		.btn-outline-primary {
+			color: #e7356a;
+			border-color: #e7356a;
+		}
+		.btn-outline-primary:hover {
+			color: #fff;
+			border-color: #e7356a;
+			background-color: #e7356a;
+		}
+		.text-orange {
+			color: #f9741b;
+		}
+		   .div div .btn-outline-primary {
+           width: 100%;
+           height: 100%;
+       }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container-fullwidth" >
+<nav class="navbar navbar-expand-lg navbar-dark" >
+  <div class="container">
+    <div class="navbar-brand navbar-center "><p class="h1 text-orange text-center">POMIAR CZASU POGŁOSU</p><p class="h4 text-orange text-center">Witamy w aplikacji do pomiaru czasu pogłosu!</p><p class="h4 text-orange text-center">Co chcesz zrobić?</p></div>
+  </div>
+</nav>
+</div>	
+<div class="container">
+<div class="row my-4"></div>
+<div class="row">
+  <div class="col-md-3 offset-md-2">
+	<a href="\home" class="btn btn-outline-primary btn-block btn-lg mt-1">
+		Pomiar
+	</a>
+  </div>
+
+  <div class="col-md-3 offset-md-2" >
+	<a href="\main" class="btn btn-outline-primary btn-block btn-lg mt-1">
+		Oblicz
+	</a>
+  </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+
+</html>

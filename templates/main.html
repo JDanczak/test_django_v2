@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Czas pogłosu - obliczanie i pomiar</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1f1b2a;
+            margin: 5vh 5vw;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1 {
+            color: #e7356a;
+            font-size: 2rem;
+
+        }
+
+        h2 {
+            color: #f9741b;
+            font-size: 1.5rem;
+            margin-top: 3vh;
+        }
+
+        input[type=number] {
+            width: 8vw;
+            height: 3vh;
+            padding: 1vh;
+            border-radius: 5px;
+            border: 2px solid #e7356a;
+            outline: none;
+            color: coral;
+            background-color: #1f1b2a;
+            margin: 3vh 2vw 0 0;
+            font-size: 0.6em;
+        }
+
+        input[type=number]:focus {
+            -webkit-box-shadow: 0px 0px 10px 2px rgba(204, 204, 204, 0.9);
+            -moz-box-shadow: 0px 0px 10px 2px rgba(204, 204, 204, 0.9);
+            box-shadow: 0px 0px 10px 2px rgba(124, 124, 124, 0.9);
+            border: 2px solid coral;
+            background-color: #1f1b2a;
+            color: #f9741b;
+        }
+
+
+        input[type=submit],
+        button,
+        .button{
+            width: 6vw;
+            height: 6vh;
+            padding: 2vh;
+            display: inline-block;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            color: #2f2f2f;
+            background-color: coral;
+            letter-spacing: 1px;
+            text-align: center;
+            font-size: 0.6em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 1.5s;
+            margin: 3vh 2vw 0 0;
+        }
+
+        .button{
+            padding: 1vh;
+            height: 3.9vh;
+            line-height: 3.9vh;
+            width: 5vw;
+            vertical-allign: middle;
+        }
+
+        input[type=submit]:hover,
+        button:hover,
+        .button:hover{
+            transform: scale(1.05);
+            background-color: #e7356a;
+        }
+
+
+        a{
+            text-decoration: none;
+            color: #2f2f2f;
+        }
+
+        select {
+            background-color: #1f1b2a;
+            color: #aaa;
+            border: 2px solid #e7356a;
+            border-radius: 5px;
+            width: 8vw;
+            height: 5.2vh;
+            padding: 1vh;
+            cursor: pointer;
+            font-size: 0.6em;
+            margin: 3vh 2vw 0 0;
+
+        }
+
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #aaa;
+            opacity: 1;
+            /* Firefox */
+        }
+
+        #krok1 {
+            display: block;
+        }
+
+        #krok2 {
+            display: none;
+        }
+
+        #pow1,
+        #pow2,
+        #pow3,
+        #pow4,
+        #pow5,
+        #pow6 {
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="krok1">
+        <h1>Obliczanie czasu pogłosu w pomieszczeniu - krok 1</h1>
+        <h2>Wybierz z ilu powierzchni o różnych współczynnikach pochłaniania składa się Twoje pomieszczenie (6 ścian + dodatkowe materiały na nich): </h2>
+        <input type="number" placeholder="liczba powierzchni" id="liczba_powierzchni" min="6" step="1" required>
+        <button onclick="ilePowierzchni()">Dalej</button>
+    </div>
+
+
+    <div id="krok2">
+        <h1>Obliczanie czasu pogłosu w pomieszczeniu - krok 2</h1>
+
+        <form action="add" >
+
+            <!-- wymiary-->
+            <div class="wymiary">
+                <h2>Wprowadź wymiary pomieszczenia:</h2>
+
+                <input type="number" name="H" placeholder="Wysokość [m]" step="1" required>
+                <input type="number" name="W" placeholder="Szerokość [m]" step="1" required>
+                <input type="number" name="L" placeholder="Długość [m]" step="1" required>
+            </div>
+
+            <!-- wspolczynniki scian-->
+            <div class="wspolczynniki">
+                <h2>Podaj współczynniki pochłaniania ścian badanego pomieszczenia: </h2>
+                <div>
+                    <input type="number" placeholder="Podłoga" name="a_podloga" step="0.1" min="0.01" max="0.99">
+                    <input type="number" placeholder="Sufit" name="a_sufit" step="0.1" min="0.01" max="0.99">
+                </div>
+
+                <div>
+                    <input type="number" placeholder="Ścaina boczna 1" name="a_b1" step="0.1" min="0.01" max="0.99">
+                    <input type="number" placeholder="Ścaina boczna 2" name="a_b2" step="0.1" min="0.01" max="0.99">
+                </div>
+
+                <div>
+                    <input type="number" placeholder="Przednia ściana" name="a_przod" step="0.1" min="0.01" max="0.99">
+                    <input type="number" placeholder="Tylna ściana" name="a_tyl" step="0.1" min="0.01" max="0.99">
+                </div>
+            </div>
+
+            <!-- powierzchnie dodatkowe-->
+            <div id="pow1">
+                <h2>Podaj na której ścianie ma się znajdować dodawana powierzchnia, jej wymiary oraz współczynnik pochłaniania.</h2>
+
+                <select id="powierzchnie" name="powierzchnie1">
+                    <option value="podloga" name="podloga" >Podłoga</option>
+                    <option value="sufit" name="sufit" >Sufit</option>
+                    <option value="boczna1" name="boczna1">Pierwsza boczna</option>
+                    <option value="boczna2" name="boczna2">Druga boczna</option>
+                    <option value="przod" name="przod">Przednia</option>
+                    <option value="tyl" name="tyl">Tył</option>
+                </select>
+
+                <input type="number" placeholder="Wysokość" name="h_p1" step="1" value="0" >
+                <input type="number" placeholder="Szerokość" name="w_p1" step="1" >
+                <input type="number" placeholder="Współczynnik pochłaniania" name="a_p1" step="0.1" min="0.01" max="0.99" >
+            </div>
+
+            <div id="pow2">
+                <select name="powierzchnie" id="powierzchnie" name="powierzchnie2">
+                    <option value="podloga" name="podloga">Podłoga</option>
+                    <option value="sufit" name="sufit">Sufit</option>
+                    <option value="boczna1" name="boczna1">Pierwsza boczna</option>
+                    <option value="boczna2" name="boczna2">Druga boczna</option>
+                    <option value="przod" name="przod">Przednia</option>
+                    <option value="tyl" name="tyl">Tył</option>
+                </select>
+                <input type="number" placeholder="Wysokość" name="h_p2" step="1" min="0.01">
+                <input type="number" placeholder="Szerokość" name="w_p2" step="1" min="0.01">
+                <input type="number" placeholder="Współczynnik pochłaniania" name="a_p2" step="0.1" min="0.01" max="0.99">
+            </div>
+
+            <div id="pow3">
+                <select name="powierzchnie" id="powierzchnie" name="powierzchnie3">
+                    <option value="podloga" name="podloga">Podłoga</option>
+                    <option value="sufit" name="sufit">Sufit</option>
+                    <option value="boczna1" name="boczna1">Pierwsza boczna</option>
+                    <option value="boczna2" name="boczna2">Druga boczna</option>
+                    <option value="przod" name="przod">Przednia</option>
+                    <option value="tyl" name="tyl">Tył</option>
+                </select>
+                <input type="number" placeholder="Wysokość" name="h_p3" step="1" min="0.01">
+                <input type="number" placeholder="Szerokość" name="w_p3" step="1" min="0.01">
+                <input type="number" placeholder="Współczynnik pochłaniania" name="a_p3" step="0.1" min="0.01" max="0.99">
+            </div>
+
+            <div id="pow4">
+                <select name="powierzchnie" id="powierzchnie" name="powierzchnie4">
+                    <option value="podloga" name="podloga">Podłoga</option>
+                    <option value="sufit" name="sufit">Sufit</option>
+                    <option value="boczna1" name="boczna1">Pierwsza boczna</option>
+                    <option value="boczna2" name="boczna2">Druga boczna</option>
+                    <option value="przod" name="przod">Przednia</option>
+                    <option value="tyl" name="tyl">Tył</option>
+                </select>
+                <input type="number" placeholder="Wysokość" name="h_p4" step="1" min="0.01">
+                <input type="number" placeholder="Szerokość" name="w_p4" step="1" min="0.01">
+                <input type="number" placeholder="Współczynnik pochłaniania" name="a_p4" step="0.1" min="0.01" max="0.99">
+            </div>
+
+            <div id="pow5">
+                <select name="powierzchnie" id="powierzchnie" name="powierzchnie5">
+                    <option value="podloga" name="podloga">Podłoga</option>
+                    <option value="sufit" name="sufit">Sufit</option>
+                    <option value="boczna1" name="boczna1">Pierwsza boczna</option>
+                    <option value="boczna2" name="boczna2">Druga boczna</option>
+                    <option value="przod" name="przod">Przednia</option>
+                    <option value="tyl" name="tyl">Tył</option>
+                </select>
+                <input type="number" placeholder="Wysokość" name="h_p5" step="1" min="0.01">
+                <input type="number" placeholder="Szerokość" name="w_p5" step="1" min="0.01">
+                <input type="number" placeholder="Współczynnik pochłaniania" name="a_p5" step="0.1" min="0.01" max="0.99">
+            </div>
+
+            <div id="pow6">
+                <select name="powierzchnie" id="powierzchnie" name="powierzchnie6">
+                    <option value="podloga" name="podloga">Podłoga</option>
+                    <option value="sufit" name="sufit">Sufit</option>
+                    <option value="boczna1" name="boczna1">Pierwsza boczna</option>
+                    <option value="boczna2" name="boczna2">Druga boczna</option>
+                    <option value="przod" name="przod">Przednia</option>
+                    <option value="tyl" name="tyl">Tył</option>
+                </select>
+                <input type="number" placeholder="Wysokość" name="h_p6" step="1" min="0.01">
+                <input type="number" placeholder="Szerokość" name="w_p6" step="1" min="0.01">
+                <input type="number" placeholder="Współczynnik pochłaniania" name="a_p6" step="0.1" min="0.01" max="0.99">
+            </div>
+            <div class="button"><a href="">Powrót</a></div>
+            <a href="add/"><button onclick="add/">Oblicz</button></a>
+        </form>
+    </div>
+
+
+
+
+    <script>
+        function ilePowierzchni() {
+            var x = document.getElementById("liczba_powierzchni").value;
+            var Krok1 = document.getElementById("krok1");
+            var Krok2 = document.getElementById("krok2");
+            var P1 = document.getElementById("pow1");
+            var P2 = document.getElementById("pow2");
+            var P3 = document.getElementById("pow3");
+            var P4 = document.getElementById("pow4");
+            var P5 = document.getElementById("pow5");
+            var P6 = document.getElementById("pow6");
+
+            Krok1.style.display = "none";
+            Krok2.style.display = "block";
+
+            if (x == 6) {
+                P1.style.display = "none";
+                P2.style.display = "none";
+                P3.style.display = "none";
+                P4.style.display = "none";
+                P5.style.display = "none";
+                P6.style.display = "none";
+            }
+            if (x == 7) {
+                P1.style.display = "block";
+            }
+            if (x == 8) {
+                P1.style.display = "block";
+                P2.style.display = "block";
+            }
+            if (x == 9) {
+                P1.style.display = "block";
+                P2.style.display = "block";
+                P3.style.display = "block";
+            }
+            if (x == 10) {
+                P1.style.display = "block";
+                P2.style.display = "block";
+                P3.style.display = "block";
+                P4.style.display = "block";
+            }
+            if (x == 11) {
+                P1.style.display = "block";
+                P2.style.display = "block";
+                P3.style.display = "block";
+                P4.style.display = "block";
+                P5.style.display = "block";
+            }
+            if (x == 12) {
+                P1.style.display = "block";
+                P2.style.display = "block";
+                P3.style.display = "block";
+                P4.style.display = "block";
+                P5.style.display = "block";
+                P6.style.display = "block";
+            }
+        }
+
+        function powrot() {
+            var Krok1 = document.getElementById("krok1");
+            var Krok2 = document.getElementById("krok2");
+
+            Krok1.style.display = "block";
+            Krok2.style.display = "none";
+        }
+
+    </script>
+</body>
+
+</html>

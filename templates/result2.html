@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Czas pogłosu - obliczanie i pomiar</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1f1b2a;
+            margin: 5vh 5vw;
+            font-family: 'Open Sans', sans-serif;
+            color:#ddd;
+        }
+
+        h1 {
+            color: #e7356a;
+            font-size: 2rem;
+
+        }
+
+        h2 {
+            color: #f9741b;
+            font-size: 1.5rem;
+            margin-top: 3vh;
+            text-align:center;
+        }
+
+        p{
+            margin-top: 2vh;
+        }
+        span{
+            color: coral;
+        }
+
+        #tabela{
+            marigin: auto;
+        }
+
+        table, th, td {
+            border: 2px solid coral;
+            border-collapse: collapse;
+            color: #e7356a;
+            margin: 10vh auto 0 auto;
+        }
+
+
+
+        td{
+            color: #ddd;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2>Czas pogłosu w badanym pomieszczeniu został obliczony ze wzoru {{wzor}}</h2>
+
+    <h2>Wyniki obliczeń czasu pogłosu oraz ozostałe parametry pomiszcenia przedstawiono w tabeli: </h2>
+
+    <div id="tabela">
+        <table style="width:70%;">
+        <tr>
+            <th>T<sub>60</sub> [ms]</th>
+            <th>V [m<sup>3</sup>]</th>
+            <th>S [m<sup>2</sup>]</th>
+            <th>A [m<sup>2</sup>]</th>
+            <th>a<sub>śr</sub> </th>
+        </tr>
+        <tr>
+            <td>{{T_60}}</td>
+            <td>{{V}}</td>
+            <td>{{S}}</td>
+            <td>{{A}}</td>
+            <td>{{a}}</td>
+        </tr>
+    </table>
+    </div>
+
+
+</body>
+</html>

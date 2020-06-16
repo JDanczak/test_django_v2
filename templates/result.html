@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div>
+    {{ graph|safe }}
+    </div>
+
+    <h2>{{ result }}</h2>
+
+    <!--
+    <div class="inputClass">
+    <form action="display" method="post">
+    {% csrf_token %}
+    <input type="submit" value="display">
+    </form>
+    </div> //-->
+
+    <div class="inputClass">
+    <form action="cursor_left" method="post">
+    {% csrf_token %}
+    <input type="submit" value="cursor LEFT">
+    </form>
+    </div>
+
+    <div class="inputClass">
+    <form action="cursor_up" method="post">
+    {% csrf_token %}
+    <input type="submit" value="cursor UP">
+    </form>
+
+    <form action="cursor_down" method="post">
+    {% csrf_token %}
+    <input type="submit" value="cursor DOWN">
+    </form>
+    </div>
+
+    <div class="inputClass">
+    <form action="cursor_right" method="post">
+    {% csrf_token %}
+    <input type="submit" value="cursor RIGHT">
+    </form>
+    </div>
+
+    <div class="inputClass">
+    <form action="tilt_bigger" method="post">
+    {% csrf_token %}
+    <input type="submit" value="tilt +">
+    </form>
+
+    <form action="tilt_smaller" method="post">
+    {% csrf_token %}
+    <input type="submit" value="tilt -">
+    </form>
+    </div>
+
+
+
+{% endblock %}
